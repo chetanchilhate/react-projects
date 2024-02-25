@@ -28,7 +28,8 @@ function App() {
   const [freezeCarousel, setFreezeCarousel] = useState(INTIAL_FREEZE_CAROUSEL);
 
   const handleLeftNavClick = () => {
-    if (current >= carousel.length) {
+    const isLeftNavActive = current >= carousel.length;
+    if (isLeftNavActive) {
       setCurrent(current - 1);
       setCarousel(array.slice(current - 1, current + 1));
       if (freezeCard) {
@@ -40,7 +41,8 @@ function App() {
   };
 
   const handleRightNavClick = () => {
-    if (current + carousel.length < array.length) {
+    const isRightNavActive = current + carousel.length < array.length;
+    if (isRightNavActive) {
       setCurrent(current + 1);
       setCarousel(array.slice(current + 1, current + 3));
       if (freezeCard) {
