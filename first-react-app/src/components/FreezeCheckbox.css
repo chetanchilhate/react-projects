@@ -1,4 +1,7 @@
 .md-checkbox {
   margin-top: 180px;  
   font-size: 35px;
+  @media (max-width:768px)  { 
+    display: none;
+   }
 }
