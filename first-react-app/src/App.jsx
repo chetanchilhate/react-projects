@@ -34,7 +34,7 @@ function App() {
       setCarousel(array.slice(current - 1, current + 1));
       if (freezeCard !== EMPTY) {
         const { arr, index } = freezeCarousel;
-        setCarousel([freezeCard, arr[index - 1]]);
+        setCarousel([freezeCard, ...arr.slice(index - 1, index)]);
         setFreezeCarousel({ arr, index: index - 1 });
       }
     }
@@ -46,7 +46,7 @@ function App() {
       setCarousel(array.slice(current + 1, current + 3));
       if (freezeCard !== EMPTY) {
         const { arr, index } = freezeCarousel;
-        setCarousel([freezeCard, arr[index + 1]]);
+        setCarousel([freezeCard, ...arr.slice(index + 1, index + 2)]);
         setFreezeCarousel({ arr, index: index + 1 });
       }
     }
