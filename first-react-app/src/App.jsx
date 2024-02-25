@@ -1,8 +1,7 @@
 import { useState } from "react";
 import "./App.css";
-import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
-import { MdOutlineCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
 import FreezeCheckox from "./components/FreezeCheckbox";
+import NavButton from "./components/NavButton";
 
 function App() {
   const array = [
@@ -19,20 +18,17 @@ function App() {
   ];
 
   const [current, setCurrent] = useState(1);
-
   const [carousel, setCarousel] = useState(array.slice(current, current + 2));
 
+  const EMPTY = "";
+  const NAV_SIZE = array.length - carousel.length;
   const INTIAL_FREEZE_CAROUSEL = { arr: [], index: 0 };
 
+  const fixedCard = array[0];
+  const [freezeCard, setFreezeCard] = useState(EMPTY);
   const [freezeCarousel, setFreezeCarousel] = useState(INTIAL_FREEZE_CAROUSEL);
 
-  const EMPTY = "";
-
-  const fixedCard = array[0];
-
-  const [freezeCard, setFreezeCard] = useState(EMPTY);
-
-  const handleLeftClick = () => {
+  const handleLeftNavClick = () => {
     if (current >= carousel.length) {
       setCurrent(current - 1);
       setCarousel(array.slice(current - 1, current + 1));
@@ -44,7 +40,7 @@ function App() {
     }
   };
 
-  const handleRightClick = () => {
+  const handleRightNavClick = () => {
     if (current + carousel.length < array.length) {
       setCurrent(current + 1);
       setCarousel(array.slice(current + 1, current + 3));
@@ -84,10 +80,11 @@ function App() {
         </div>
         <div className="card">{carousel[1]}</div>
       </div>
-      <div className="nav-btn-container">
-        <FaArrowCircleLeft onClick={handleLeftClick} />
-        <FaArrowCircleRight onClick={handleRightClick} />
-      </div>
+      <NavButton
+        navSize={NAV_SIZE}
+        handleLeftNavClick={handleLeftNavClick}
+        handleRightNavClick={handleRightNavClick}
+      />
     </>
   );
 }

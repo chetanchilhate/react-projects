@@ -1,0 +1,23 @@
+.nav-btn-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 150px;
+  font-size: 40px;  
+}
+
+.nav-btn {
+  color: grey;
+}
+
+.nav-btn-active {
+  color:rgb(75, 75, 255);
+  transition: all 1s ease-out;
+}
+
+.nav-btn-active:hover {
+  color: blue;
+}
+
+.nav-btn-active:active {
+  font-size: 80px;
+}
