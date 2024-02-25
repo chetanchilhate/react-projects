@@ -20,19 +20,18 @@ function App() {
   const [current, setCurrent] = useState(1);
   const [carousel, setCarousel] = useState(array.slice(current, current + 2));
 
-  const EMPTY = "";
   const NAV_SIZE = array.length - carousel.length;
   const INTIAL_FREEZE_CAROUSEL = { arr: [], index: 0 };
 
   const fixedCard = array[0];
-  const [freezeCard, setFreezeCard] = useState(EMPTY);
+  const [freezeCard, setFreezeCard] = useState(null);
   const [freezeCarousel, setFreezeCarousel] = useState(INTIAL_FREEZE_CAROUSEL);
 
   const handleLeftNavClick = () => {
     if (current >= carousel.length) {
       setCurrent(current - 1);
       setCarousel(array.slice(current - 1, current + 1));
-      if (freezeCard !== EMPTY) {
+      if (freezeCard) {
         const { arr, index } = freezeCarousel;
         setCarousel([freezeCard, ...arr.slice(index - 1, index)]);
         setFreezeCarousel({ arr, index: index - 1 });
@@ -44,7 +43,7 @@ function App() {
     if (current + carousel.length < array.length) {
       setCurrent(current + 1);
       setCarousel(array.slice(current + 1, current + 3));
-      if (freezeCard !== EMPTY) {
+      if (freezeCard) {
         const { arr, index } = freezeCarousel;
         setCarousel([freezeCard, ...arr.slice(index + 1, index + 2)]);
         setFreezeCarousel({ arr, index: index + 1 });
@@ -53,7 +52,11 @@ function App() {
   };
 
   const handleFreezeCheckboxClick = () => {
-    if (freezeCard === EMPTY) {
+    if (freezeCard) {
+      setCarousel(array.slice(current, current + 2));
+      setFreezeCard(null);
+      setFreezeCarousel(INTIAL_FREEZE_CAROUSEL);
+    } else {
       setFreezeCard(carousel[0]);
       const filterValue = [fixedCard, carousel[0]];
       const freezeCarouselArr = array.filter(
@@ -61,10 +64,6 @@ function App() {
       );
       const freezeCarouselIndex = freezeCarouselArr.indexOf(carousel[1]);
       setFreezeCarousel({ arr: freezeCarouselArr, index: freezeCarouselIndex });
-    } else {
-      setCarousel(array.slice(current, current + 2));
-      setFreezeCard(EMPTY);
-      setFreezeCarousel(INTIAL_FREEZE_CAROUSEL);
     }
   };
 
