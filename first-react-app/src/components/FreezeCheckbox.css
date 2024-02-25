@@ -1,6 +1,8 @@
 .md-checkbox {
-  margin-top: 180px;  
+  margin-top: 200px;
+  height: 35px;
   font-size: 35px;
+  text-align: center;
   @media (max-width:768px)  { 
     display: none;
    }

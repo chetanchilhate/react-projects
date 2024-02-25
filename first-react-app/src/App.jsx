@@ -71,14 +71,20 @@ function App() {
   return (
     <>
       <div className="container">
-        <div className="card">{fixedCard}</div>
         <div className="card">
-          {carousel[0]}
-          <FreezeCheckox
-            handleFreezeCheckboxClick={handleFreezeCheckboxClick}
-          />
+          <div className="content">{fixedCard}</div>
         </div>
-        <div className="card">{carousel[1]}</div>
+        <div className="card">
+          <div className="content">
+            {carousel[0]}
+            <FreezeCheckox
+              handleFreezeCheckboxClick={handleFreezeCheckboxClick}
+            />
+          </div>
+        </div>
+        <div className="card">
+          <div className="content">{carousel[1]}</div>
+        </div>
       </div>
       <NavButton
         navSize={NAV_SIZE}
