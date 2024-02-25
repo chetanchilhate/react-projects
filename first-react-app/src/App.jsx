@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import { MdOutlineCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
+import FreezeCheckox from "./components/FreezeCheckbox";
 
 function App() {
   const array = [
@@ -55,7 +56,7 @@ function App() {
     }
   };
 
-  const handleFreezeBtnClick = () => {
+  const handleFreezeCheckboxClick = () => {
     if (freezeCard === EMPTY) {
       setFreezeCard(carousel[0]);
       const filterValue = [fixedCard, carousel[0]];
@@ -75,17 +76,16 @@ function App() {
     <>
       <div className="container">
         <div className="card">{fixedCard}</div>
-        <div className="card">{carousel[0]}</div>
+        <div className="card">
+          {carousel[0]}
+          <FreezeCheckox
+            handleFreezeCheckboxClick={handleFreezeCheckboxClick}
+          />
+        </div>
         <div className="card">{carousel[1]}</div>
       </div>
-
       <div className="nav-btn-container">
         <FaArrowCircleLeft onClick={handleLeftClick} />
-        {freezeCard === EMPTY ? (
-          <MdCheckBoxOutlineBlank onClick={handleFreezeBtnClick} />
-        ) : (
-          <MdOutlineCheckBox onClick={handleFreezeBtnClick} />
-        )}
         <FaArrowCircleRight onClick={handleRightClick} />
       </div>
     </>
