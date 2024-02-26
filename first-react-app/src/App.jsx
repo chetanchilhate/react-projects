@@ -17,11 +17,6 @@ function App() {
     "Ten",
   ];
 
-  const navActive = {
-    left: true,
-    right: true,
-  };
-
   const NAV_DIRECTION = {
     LEFT: -1,
     RIGHT: 1,
@@ -40,18 +35,51 @@ function App() {
   const [carousel, setCarousel] = useState(INIT_CAROUSEL);
 
   const handleNavClick = (direction) => {
-    const { array, current, cards } = carousel;
+    const { array, current, cards, freezeCard, frezzeArray, frezzeCurrent } =
+      carousel;
     const next = current + direction;
 
     if (next < 0 || next > array.length - cards.length) {
       return;
     }
 
+    if (freezeCard) {
+      const nextFreeze = frezzeCurrent + direction;
+      setCarousel({
+        ...carousel,
+        cards: [freezeCard, ...frezzeArray.slice(nextFreeze)].slice(0, 2),
+        current: next,
+        frezzeCurrent: nextFreeze,
+      });
+      return;
+    }
+
     setCarousel({
       ...carousel,
-      current: next,
       cards: array.slice(next, next + 2),
+      current: next,
     });
+  };
+
+  const handleFreeze = () => {
+    const { array, current, freezeCard } = carousel;
+    if (freezeCard) {
+      setCarousel({
+        ...carousel,
+        cards: array.slice(current, current + 2),
+        freezeCard: null,
+        frezzeArray: [],
+        frezzeCurrent: 0,
+      });
+    } else {
+      const newFreezeArray = array.filter((item) => item !== array[current]);
+      setCarousel({
+        ...carousel,
+        freezeCard: array[current],
+        frezzeArray: newFreezeArray,
+        frezzeCurrent: newFreezeArray.indexOf(array[current + 1]),
+      });
+    }
   };
 
   return (
@@ -63,11 +91,7 @@ function App() {
         <div className="card">
           <div className="content">
             {carousel.cards[0]}
-            <FreezeCheckox
-              onFreeze={() => {
-                console.log("freeze");
-              }}
-            />
+            <FreezeCheckox onFreeze={handleFreeze} />
           </div>
         </div>
         <div className="card">
