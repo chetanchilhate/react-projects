@@ -17,88 +17,39 @@ function App() {
     "Ten",
   ];
 
-  const [current, setCurrent] = useState(1);
-  const [carousel, setCarousel] = useState(array.slice(current, current + 2));
-
   const navActive = {
     left: true,
     right: true,
-  };
-
-  const INTIAL_FREEZE_CAROUSEL = { arr: [], index: 0 };
-
-  const fixedCard = array[0];
-  const [freezeCard, setFreezeCard] = useState(null);
-  const [freezeCarousel, setFreezeCarousel] = useState(INTIAL_FREEZE_CAROUSEL);
-
-  const handleLeftNavClick = () => {
-    const isLeftNavActive = current - 1 >= carousel.length;
-    const isRightNavActive = current + 1 + carousel.length < array.length;
-    setNavActive({ left: isLeftNavActive, right: isRightNavActive });
-    console.log("navActive", navActive);
-    if (isLeftNavActive) {
-      setCurrent(current - 1);
-      setCarousel(array.slice(current - 1, current + 1));
-      if (freezeCard) {
-        const { arr, index } = freezeCarousel;
-        setCarousel([freezeCard, ...arr.slice(index - 1, index)]);
-        setFreezeCarousel({ arr, index: index - 1 });
-      }
-    }
-  };
-
-  const handleRightNavClick = () => {
-    const isLeftNavActive = current + 1 >= carousel.length;
-    const isRightNavActive = current + carousel.length - 1 < array.length;
-    setNavActive({ left: isLeftNavActive, right: isRightNavActive });
-    console.log("navActive", navActive);
-    if (isRightNavActive) {
-      setCurrent(current + 1);
-      setCarousel(array.slice(current + 1, current + 3));
-      if (freezeCard) {
-        const { arr, index } = freezeCarousel;
-        setCarousel([freezeCard, ...arr.slice(index + 1, index + 2)]);
-        setFreezeCarousel({ arr, index: index + 1 });
-      }
-    }
-  };
-
-  const handleFreeze = () => {
-    if (freezeCard) {
-      setCarousel(array.slice(current, current + 2));
-      setFreezeCard(null);
-      setFreezeCarousel(INTIAL_FREEZE_CAROUSEL);
-    } else {
-      setFreezeCard(carousel[0]);
-      const filterValue = [fixedCard, carousel[0]];
-      const freezeCarouselArr = array.filter(
-        (item) => !filterValue.includes(item)
-      );
-      const freezeCarouselIndex = freezeCarouselArr.indexOf(carousel[1]);
-      setFreezeCarousel({ arr: freezeCarouselArr, index: freezeCarouselIndex });
-    }
   };
 
   return (
     <>
       <div className="container">
         <div className="card">
-          <div className="content">{fixedCard}</div>
+          <div className="content">Fix</div>
         </div>
         <div className="card">
           <div className="content">
-            {carousel[0]}
-            <FreezeCheckox onFreeze={handleFreeze} />
+            Frezze
+            <FreezeCheckox
+              onFreeze={() => {
+                console.log("freeze");
+              }}
+            />
           </div>
         </div>
         <div className="card">
-          <div className="content">{carousel[1]}</div>
+          <div className="content">Moving</div>
         </div>
       </div>
       <NavButton
         navActive={navActive}
-        handleLeftNavClick={handleLeftNavClick}
-        handleRightNavClick={handleRightNavClick}
+        handleLeftNavClick={() => {
+          console.log("left");
+        }}
+        handleRightNavClick={() => {
+          console.log("right");
+        }}
       />
     </>
   );
