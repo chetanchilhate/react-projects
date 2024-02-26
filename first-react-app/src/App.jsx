@@ -39,6 +39,21 @@ function App() {
 
   const [carousel, setCarousel] = useState(INIT_CAROUSEL);
 
+  const handleNavClick = (direction) => {
+    const { array, current, cards } = carousel;
+    const next = current + direction;
+
+    if (next < 0 || next > array.length - cards.length) {
+      return;
+    }
+
+    setCarousel({
+      ...carousel,
+      current: next,
+      cards: array.slice(next, next + 2),
+    });
+  };
+
   return (
     <>
       <div className="container">
@@ -60,12 +75,12 @@ function App() {
         </div>
       </div>
       <NavButton
-        navActive={navActive}
-        handleLeftNavClick={() => {
-          console.log("left");
+        carousel={carousel}
+        onLeftNavClick={() => {
+          handleNavClick(NAV_DIRECTION.LEFT);
         }}
-        handleRightNavClick={() => {
-          console.log("right");
+        onRightNavClick={() => {
+          handleNavClick(NAV_DIRECTION.RIGHT);
         }}
       />
     </>

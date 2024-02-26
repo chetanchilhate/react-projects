@@ -1,16 +1,23 @@
 import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import "./NavButton.css";
 
-const NavButton = ({ navActive, handleLeftNavClick, handleRightNavClick }) => {
+const NavButton = ({ carousel, onLeftNavClick, onRightNavClick }) => {
+  const leftNavActive = () => {
+    const { current } = carousel;
+    return current > 0 ? "nav-btn-active" : "nav-btn";
+  };
+
+  const rightNavActive = () => {
+    const { array, current, cards } = carousel;
+    return current < array.length - cards.length ? "nav-btn-active" : "nav-btn";
+  };
+
   return (
     <div className="nav-btn-container">
-      <FaArrowCircleLeft
-        className={navActive.left ? "nav-btn-active" : "nav-btn"}
-        onClick={handleLeftNavClick}
-      />
+      <FaArrowCircleLeft className={leftNavActive()} onClick={onLeftNavClick} />
       <FaArrowCircleRight
-        className={navActive.right ? "nav-btn-active" : "nav-btn"}
-        onClick={handleRightNavClick}
+        className={rightNavActive()}
+        onClick={onRightNavClick}
       />
     </div>
   );
