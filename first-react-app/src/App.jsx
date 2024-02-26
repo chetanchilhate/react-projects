@@ -20,7 +20,11 @@ function App() {
   const [current, setCurrent] = useState(1);
   const [carousel, setCarousel] = useState(array.slice(current, current + 2));
 
-  const NAV_SIZE = array.length - carousel.length;
+  const navActive = {
+    left: true,
+    right: true,
+  };
+
   const INTIAL_FREEZE_CAROUSEL = { arr: [], index: 0 };
 
   const fixedCard = array[0];
@@ -28,7 +32,10 @@ function App() {
   const [freezeCarousel, setFreezeCarousel] = useState(INTIAL_FREEZE_CAROUSEL);
 
   const handleLeftNavClick = () => {
-    const isLeftNavActive = current >= carousel.length;
+    const isLeftNavActive = current - 1 >= carousel.length;
+    const isRightNavActive = current + 1 + carousel.length < array.length;
+    setNavActive({ left: isLeftNavActive, right: isRightNavActive });
+    console.log("navActive", navActive);
     if (isLeftNavActive) {
       setCurrent(current - 1);
       setCarousel(array.slice(current - 1, current + 1));
@@ -41,7 +48,10 @@ function App() {
   };
 
   const handleRightNavClick = () => {
-    const isRightNavActive = current + carousel.length < array.length;
+    const isLeftNavActive = current + 1 >= carousel.length;
+    const isRightNavActive = current + carousel.length - 1 < array.length;
+    setNavActive({ left: isLeftNavActive, right: isRightNavActive });
+    console.log("navActive", navActive);
     if (isRightNavActive) {
       setCurrent(current + 1);
       setCarousel(array.slice(current + 1, current + 3));
@@ -53,7 +63,7 @@ function App() {
     }
   };
 
-  const handleFreezeCheckboxClick = () => {
+  const handleFreeze = () => {
     if (freezeCard) {
       setCarousel(array.slice(current, current + 2));
       setFreezeCard(null);
@@ -78,9 +88,7 @@ function App() {
         <div className="card">
           <div className="content">
             {carousel[0]}
-            <FreezeCheckox
-              handleFreezeCheckboxClick={handleFreezeCheckboxClick}
-            />
+            <FreezeCheckox onFreeze={handleFreeze} />
           </div>
         </div>
         <div className="card">
@@ -88,7 +96,7 @@ function App() {
         </div>
       </div>
       <NavButton
-        navSize={NAV_SIZE}
+        navActive={navActive}
         handleLeftNavClick={handleLeftNavClick}
         handleRightNavClick={handleRightNavClick}
       />

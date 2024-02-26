@@ -2,20 +2,20 @@ import React, { useState } from "react";
 import { MdOutlineCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
 import "./FreezeCheckbox.css";
 
-const FreezeCheckox = ({ handleFreezeCheckboxClick }) => {
+const FreezeCheckox = ({ onFreeze }) => {
   const [isFrozen, setIsFrozen] = useState(false);
 
-  const handleFreezeBtnClick = () => {
+  const handleFreezeClick = () => {
     setIsFrozen(!isFrozen);
-    handleFreezeCheckboxClick();
+    onFreeze();
   };
 
   return (
     <div className="md-checkbox">
       {isFrozen ? (
-        <MdOutlineCheckBox onClick={handleFreezeBtnClick} />
+        <MdOutlineCheckBox onClick={handleFreezeClick} />
       ) : (
-        <MdCheckBoxOutlineBlank onClick={handleFreezeBtnClick} />
+        <MdCheckBoxOutlineBlank onClick={handleFreezeClick} />
       )}
     </div>
   );
