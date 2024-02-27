@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { MdOutlineCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
 import "./FreezeCheckbox.css";
 
-const FreezeCheckox = ({ onFreeze }) => {
+const FreezeCheckbox = ({ onFreeze }) => {
   const [isFrozen, setIsFrozen] = useState(false);
 
   const handleFreezeClick = () => {
@@ -21,4 +21,4 @@ const FreezeCheckox = ({ onFreeze }) => {
   );
 };
 
-export default FreezeCheckox;
+export default FreezeCheckbox;

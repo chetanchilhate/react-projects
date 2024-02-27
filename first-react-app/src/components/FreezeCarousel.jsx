@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import FreezeCheckox from "./FreezeCheckbox";
+import FreezeCheckbox from "./FreezeCheckbox";
 import NavButton from "./NavButton";
 
 import "./FreezeCarousel.css";
