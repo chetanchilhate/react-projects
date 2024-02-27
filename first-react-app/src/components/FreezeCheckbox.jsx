@@ -6,7 +6,7 @@ const FreezeCheckbox = ({ onFreeze }) => {
   const [isFrozen, setIsFrozen] = useState(false);
 
   const handleFreezeClick = () => {
-    setIsFrozen(!isFrozen);
+    setIsFrozen((isFrozen) => !isFrozen);
     onFreeze();
   };
 
