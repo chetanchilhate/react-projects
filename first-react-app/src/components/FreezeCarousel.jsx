@@ -83,7 +83,7 @@ const FreezeCarousel = ({ items, carouselSize }) => {
         <div className="card">
           <div className="content">
             {carousel.cards[0]}
-            <FreezeCheckox onFreeze={handleFreeze} />
+            <FreezeCheckbox onFreeze={handleFreeze} />
           </div>
         </div>
         {carousel.cards.slice(1).map((item, index) => {
