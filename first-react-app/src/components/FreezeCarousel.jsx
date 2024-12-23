@@ -74,26 +74,42 @@ const FreezeCarousel = ({ items, carouselSize }) => {
     }
   };
 
+  const [isDragging, setIsDragging] = useState(false);
+
+  const handleDragging = (e) => {
+    if (!isDragging) return;
+    e.target.scrollLeft = e.target.scrollLeft - e.movementX * 20;
+  };
+
   return (
     <>
-      <div className="container">
-        <div className="card">
+      <ul
+        className={isDragging ? "container mouse-down" : "container"}
+        onMouseMove={handleDragging}
+        onMouseDown={(e) => {
+          setIsDragging(true);
+        }}
+        onMouseUp={() => {
+          setIsDragging(false);
+        }}
+      >
+        <li className="card fix-card">
           <div className="content">{carousel.fixCard}</div>
-        </div>
-        <div className="card">
+        </li>
+        <li className="card">
           <div className="content">
             {carousel.cards[0]}
             <FreezeCheckbox onFreeze={handleFreeze} />
           </div>
-        </div>
-        {carousel.cards.slice(1).map((item, index) => {
+        </li>
+        {carousel.array.slice(1).map((item, index) => {
           return (
-            <div key={index} className="card">
+            <li key={index} className="card">
               <div className="content">{item}</div>
-            </div>
+            </li>
           );
         })}
-      </div>
+      </ul>
       <NavButton
         carousel={carousel}
         onLeftNavClick={() => {
