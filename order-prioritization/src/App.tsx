@@ -2,7 +2,9 @@ import "bootstrap/dist/css/bootstrap.css";
 import { useEffect, useState } from "react";
 import "./App.css";
 
-const ORDER_BASE_URL: String = "http://localhost:8090/api/v1/orders";
+const SERVICE_HOSTNAME: string = import.meta.env.VITE_SERVICE_HOSTNAME;
+
+const ORDER_BASE_URL: string = `${SERVICE_HOSTNAME}/api/v1/orders`;
 
 interface OrderLineItem {
   id: string;
@@ -110,6 +112,7 @@ function App() {
 
   return (
     <>
+      <h2>{import.meta.env.VITE_service_hostname}</h2>
       <div className="container text-center">
         <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
           <button
